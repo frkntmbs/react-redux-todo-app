@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { nanoid } from "nanoid";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/todoSlice";
 
-function ToDoForm(props) {
+function ToDoForm() {
   const [input, setInput] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    props.onSubmit({
-      id: nanoid(),
-      title: input,
-      status: false,
-    });
+    if (input) {
+      dispatch(
+        addTodo({
+          id: nanoid(),
+          title: input,
+          status: false,
+        })
+      );
+    }
 
     setInput("");
   };
